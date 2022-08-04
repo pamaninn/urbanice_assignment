@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOM from "react-dom";
+import axios from "axios";
+import { response } from "express";
+
 
 function Restaurant() {
   const [location, setLocation] = useState("-33.8670522,151.1957362");
@@ -8,9 +11,12 @@ function Restaurant() {
   const [address, setAddress] = useState("บางซื่อ");
   const apiKey = "AIzaSyCIaAnRX6RU5Ko29T2ukeXbNjlXTyot-ys";
   const radius = "100";
+  
+  
 
   const makeAPICall = async () => {
-    const url =
+
+     const url =
       "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
       location +
       "&radius=" +
@@ -19,23 +25,45 @@ function Restaurant() {
       apiKey;
     console.log(url);
 
-    await fetch(url, {     
-      method: "GET"
-      // headers: {
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Credentials": true,
-      //   "Access-Control-Allow-Methods": "POST, GET",
-      //   "Content-Type": "application/json",
-      // },
-    })
-      .then((response) => {
-       console.log(response);
-      })
-      .then((data) => {
-        console.log(data);
-        setRestaurant(data.results);
-        setAPIResponse(data.status);
-      });
+   
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    axios.get('http://localhost:3000').then((response) => {console.log(response);})
+
+    // fetch("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=13.828253,100.5284507&radius=100&type=restaurant&key=AIzaSyCIaAnRX6RU5Ko29T2ukeXbNjlXTyot-ys", requestOptions)
+    //   .then(response => response.text())
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log('error', error));
+
+    // const url =
+    //   "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+    //   location +
+    //   "&radius=" +
+    //   radius +
+    //   "&type=restaurant&key=" +
+    //   apiKey;
+    // console.log(url);
+
+    // await fetch(url, {     
+    //   method: "GET"
+    //   // headers: {
+    //   //   "Access-Control-Allow-Origin": "*",
+    //   //   "Access-Control-Allow-Credentials": true,
+    //   //   "Access-Control-Allow-Methods": "POST, GET",
+    //   //   "Content-Type": "application/json",
+    //   // },
+    // })
+    //   .then((response) => {
+    //    console.log(response);
+    //   })
+    //   .then((data) => {
+    //     console.log(data);
+    //     setRestaurant(data.results);
+    //     setAPIResponse(data.status);
+    //   });
   };
 
   const getCoordinates = () => {
