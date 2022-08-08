@@ -21,16 +21,19 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function RestaurantCard(props) {
   //console.log(props);
   const { item, apiKey, index } = props;
-const hasPhotos = item.photos === undefined;
-  const photoRef = hasPhotos? '' : item.photos[0].photo_reference; //!== undefined ?? item.photos[0].photo_reference;
-
-  const photoApi = hasPhotos ? '' : "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference="+photoRef+"&key="+apiKey;
-  console.log(photoApi);
+  const hasPhotos = item.photos === undefined;
+  const photoRef = hasPhotos ? "" : item.photos[0].photo_reference; 
+  const photoApi = hasPhotos
+    ? ""
+    : "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
+      photoRef +
+      "&key=" +
+      apiKey;
 
   return (
     <Grid item key={index}>
-      <Item>
-        <Card sx={{ maxWidth: 250 }}>
+      {/* <Item> */}
+        <Card sx={{ maxWidth: 250, height: 350, m:0,p:0 }}>
           <CardMedia
             component="img"
             height="140"
@@ -38,10 +41,10 @@ const hasPhotos = item.photos === undefined;
             //alt="green iguana"
           />
           <CardContent>
-          <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               {/* {item.business_status == "CLOSED_TEMPORARILY" ? 'permanently closed': item.opening_hours.open_now ? 'open now':'closed' } */}
             </Typography>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h7" component="div">
               {item.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -55,7 +58,7 @@ const hasPhotos = item.photos === undefined;
             </Button>
           </CardActions>
         </Card>
-      </Item>
+      {/* </Item> */}
     </Grid>
   );
 }
