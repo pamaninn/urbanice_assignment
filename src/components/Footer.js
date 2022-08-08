@@ -10,13 +10,13 @@ Heading,
 
 const Footer = () => {
 return (
-	<Box>
+	// <Box>
 	<p style={{ color: "black",
 				textAlign: "center" }}>
 		© All rights reserved made by Pamaninn
 	</p>
 
-	</Box>
+	// </Box>
 );
 };
 export default Footer;

@@ -8,8 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Header() {
-  return (
-    // <div></div>
+  return (    
     <AppBar
       position="static"
       style={{
@@ -36,9 +35,9 @@ export default function Header() {
 		default font weights and sizes */}
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Urbanice
+          Restaurant
         </Typography>
-        <Button color="inherit">Pamaninn P.</Button>
+        {/* <Button color="inherit">Pamaninn P.</Button> */}
       </Toolbar>
     </AppBar>
   );

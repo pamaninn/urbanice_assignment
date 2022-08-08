@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RestaurantCard from "../components/RestaurantCard";
+import Grid from "@mui/material/Grid";
+import { Box } from "@mui/material";
 
 function Restaurant() {
   const [location, setLocation] = useState("-33.8670522,151.1957362");
@@ -54,15 +56,19 @@ function Restaurant() {
   }, [location]);
 
   return (
-    <div>
-      {restaurant.map((item) => (
+    
+      <Box sx={{flexGrow:1,mt:2}} >
+      <Grid container spacing={{xs:1}} columns={{xs:4,sm:8,md:12}} sx={{marginTop:0}}>
+      {restaurant.map((item,index) => (
         
-        <RestaurantCard {...item}/>
+        <RestaurantCard item={item} apiKey={apiKey} index={index}/>
       
       ))
       }
-    
-    </div>
+      </Grid>
+   
+    </Box>
+   
   );
 }
 
