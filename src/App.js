@@ -7,11 +7,13 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Restaurant from "./pages/Restaurant";
 import { Container } from "@mui/material";
+import SearchAppBar from "./components/HeaderBar";
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
+      <SearchAppBar />
       <Container >
         <BrowserRouter>
           <Routes>
