@@ -4,6 +4,7 @@ import RestaurantCard from "../components/RestaurantCard";
 import Grid from "@mui/material/Grid";
 import { Box, stepContentClasses } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Restaurant(props) {
   const { searchAddress } = props;
@@ -13,11 +14,9 @@ function Restaurant(props) {
   const [zeroResult, setZeroResult] = useState(false);
   const apiKey = "AIzaSyCIaAnRX6RU5Ko29T2ukeXbNjlXTyot-ys";
   const radius = "500";
-  console.log(searchAddress);
 
   //get latitude and longtitude location
   const getLocations = () => {
-    console.log("location", address);
     fetch(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         address +
@@ -58,14 +57,17 @@ function Restaurant(props) {
       .catch((error) => console.log("error", error));
   };
 
+  //Set address when props searchAddress from parent has been changed
   useEffect(() => {
     setAddress(searchAddress);
   }, [searchAddress]);
 
+  //Get location from searching keyword address to get latitude ang longtitude for retrive list of resturant , call funciton when address changed
   useEffect(() => {
     getLocations();
   }, [address]);
 
+  //Call get restaurant when location changed
   useEffect(() => {
     getRestaurant();
   }, [location]);

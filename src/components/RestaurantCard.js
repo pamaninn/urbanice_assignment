@@ -1,16 +1,12 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { Chip, IconButton, Paper } from "@mui/material";
-import { textAlign } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import StarSharp from "@mui/icons-material/StarSharp";
-import { yellow } from "@mui/material/colors";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -39,8 +35,7 @@ export default function RestaurantCard(props) {
         <CardMedia
           component="img"
           height="140"
-          image={hasPhotos ? item.icon : photoApi}
-          //alt="green iguana"
+          image={hasPhotos ? item.icon : photoApi}          
         />
         <CardContent sx={{height:100}}>         
           <Typography gutterBottom variant="h7" component="div">
