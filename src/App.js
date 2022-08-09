@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Restaurant from "./pages/Restaurant";
 import { Container } from "@mui/material";
 import SearchAppBar from "./components/HeaderBar";
+import FindPuzzleNumber from "./pages/FindPuzzleNumber";
 
 function App() {
   const [searchValue, setTextSearch] = useState("Bang sue");
@@ -27,6 +28,10 @@ function App() {
             <Route
               path="restaurant"
               element={<Restaurant searchAddress={searchValue} />}
+            />
+            <Route
+              path="findPuzzleNumber"
+              element={<FindPuzzleNumber />}
             />
           </Routes>
         </BrowserRouter>
