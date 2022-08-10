@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { Box, stepContentClasses } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import Loader from "../components/Loader";
 
 function Restaurant(props) {
   const { searchAddress } = props;
@@ -12,11 +13,13 @@ function Restaurant(props) {
   const [restaurant, setRestaurant] = useState([]);
   const [address, setAddress] = useState(searchAddress);
   const [zeroResult, setZeroResult] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const apiKey = "AIzaSyCIaAnRX6RU5Ko29T2ukeXbNjlXTyot-ys";
   const radius = "500";
 
   //get latitude and longtitude location
   const getLocations = () => {
+    console.log(address);
     fetch(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         address +
@@ -31,14 +34,18 @@ function Restaurant(props) {
           const longitude = data.results[0].geometry.location.lng;
           //set value to location
           setLocation(latitude + "," + longitude);
-        } else if (data.status === "ZERO_RESULTS") {
+          setZeroResult(false);
+        } else  {
           setZeroResult(true);
-        }
+          setLoading(false);
+          
+        } //if (data.status === "ZERO_RESULTS")
       });
   };
 
   //get restaurant with google api
   const getRestaurant = async () => {
+    console.log(location);
     const url =
       "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
       location +
@@ -52,28 +59,43 @@ function Restaurant(props) {
       .post("http://localhost:5000/googleapi", { path: url })
       .then((res) => {
         setRestaurant(res.data);
-        //console.log(res.data);
+        
+        console.log(res.data);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {        
+        console.log("error", error);
+      });
   };
 
-  //Set address when props searchAddress from parent has been changed
+  //1.Set address when props searchAddress from parent has been changed
   useEffect(() => {
     setAddress(searchAddress);
+    setLoading(true);
   }, [searchAddress]);
 
-  //Get location from searching keyword address to get latitude ang longtitude for retrive list of resturant , call funciton when address changed
+  //2.Get location from searching keyword address to get latitude ang longtitude for retrive list of resturant , call funciton when address changed
   useEffect(() => {
     getLocations();
+    setLoading(true);
   }, [address]);
 
-  //Call get restaurant when location changed
+  //3.Call get restaurant when location changed
   useEffect(() => {
     getRestaurant();
   }, [location]);
 
+  useEffect(()=>{
+  
+      setLoading(false);
+      
+  },[restaurant]);
+
   return (
-    <Box sx={{ flexGrow: 1, mt: 2 }}>
+    <div>
+    {isLoading ? (<Loader /> ):
+      (
+    <Box sx={{ flexGrow: 1, mt: 2 }}>     
+     
       {zeroResult ? (
         <Typography variant="h1" component="h2">
           No result
@@ -81,10 +103,11 @@ function Restaurant(props) {
       ) : (
         <Grid
           container
-          spacing={{ xs: 6 }}
+          spacing={{ xs: 1 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           sx={{ marginTop: 0 }}
         >
+        
           {restaurant.map((item, index) => (
             <RestaurantCard
               item={item}
@@ -96,6 +119,9 @@ function Restaurant(props) {
         </Grid>
       )}
     </Box>
+    
+    ) }
+    </div>
   );
 }
 

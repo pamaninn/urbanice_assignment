@@ -5,19 +5,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { Chip, IconButton, Paper } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import StarSharp from "@mui/icons-material/StarSharp";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 export default function RestaurantCard(props) {
-  //console.log(props);
+
   const { item, apiKey, index } = props;
   const hasPhotos = item.photos === undefined;
   const photoRef = hasPhotos ? "" : item.photos[0].photo_reference;
@@ -31,7 +23,7 @@ export default function RestaurantCard(props) {
   return (
     <Grid item key={index}>
       {/* <Item> */}
-      <Card sx={{ maxWidth: 250, height: 320, m: 0, p: 0 }}>
+      <Card sx={{ width: 280, height: 320, m: 0, p: 0 }}>
         <CardMedia
           component="img"
           height="140"
