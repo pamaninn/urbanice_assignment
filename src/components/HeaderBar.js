@@ -94,7 +94,7 @@ export default function SearchAppBar(props) {
           >
             Urbanice
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -105,7 +105,7 @@ export default function SearchAppBar(props) {
               inputtypesearch="true"
               value={searchValue}
             />
-          </Search>
+          </Search> */}
         </Toolbar>
       </AppBar>
     </Box>

@@ -2,20 +2,74 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RestaurantCard from "../components/RestaurantCard";
 import Grid from "@mui/material/Grid";
-import { Box, stepContentClasses } from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
 import Loader from "../components/Loader";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
+
+//Style of search box
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: '#c4cbcd59' ,
+  "&:hover": {
+    backgroundColor: '#c4cbcd59' ,
+  },
+  marginLeft: 0,
+  width: "100%",
+  marginBottom:5,
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "50%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 function Restaurant(props) {
-  const { searchAddress } = props;
+  //const { searchAddress } = props;
   const [location, setLocation] = useState("");
   const [restaurant, setRestaurant] = useState([]);
-  const [address, setAddress] = useState(searchAddress);
+  const [address, setAddress] = useState("Bang sue");
   const [zeroResult, setZeroResult] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const apiKey = "AIzaSyCIaAnRX6RU5Ko29T2ukeXbNjlXTyot-ys";
   const radius = "500";
+  //const [searchAddress, setTextSearch] = useState("Bang sue");  
+
+  //On change search bar
+  const changeState = (e) => {
+    const value = e.target.value;
+    //Set search alue
+    setAddress(value);
+  };
 
   //get latitude and longtitude location
   const getLocations = () => {
@@ -68,15 +122,15 @@ function Restaurant(props) {
   };
 
   //1.Set address when props searchAddress from parent has been changed
-  useEffect(() => {
-    setAddress(searchAddress);
-    setLoading(true);
-  }, [searchAddress]);
+  // useEffect(() => {
+  //   //setAddress(searchAddress);
+  //   setLoading(true);
+  // }, []);
 
   //2.Get location from searching keyword address to get latitude ang longtitude for retrive list of resturant , call funciton when address changed
   useEffect(() => {
     getLocations();
-    setLoading(true);
+    //setLoading(true);
   }, [address]);
 
   //3.Call get restaurant when location changed
@@ -95,7 +149,25 @@ function Restaurant(props) {
     {isLoading ? (<Loader /> ):
       (
     <Box sx={{ flexGrow: 1, mt: 2 }}>     
-     
+    <Grid
+          container
+          spacing={{ xs: 1 }}
+          columns={{ xs: 1 }}
+          sx={{ marginTop: 2 }}
+        >
+    <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              onChange={changeState}
+              inputtypesearch="true"
+              value={address}
+            />
+          </Search>
+          </Grid>
       {zeroResult ? (
         <Typography variant="h1" component="h2">
           No result
@@ -105,7 +177,7 @@ function Restaurant(props) {
           container
           spacing={{ xs: 1 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          sx={{ marginTop: 0 }}
+          sx={{ marginTop: 2 }}
         >
         
           {restaurant.map((item, index) => (
