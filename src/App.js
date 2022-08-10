@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App"> 
       
-          <SearchAppBar changeState={changeState} searchValue={searchValue} path={path} />
+          <SearchAppBar changeState={changeState} searchValue={searchValue}/>
           <Container sx={{minHeight:500}}>
             <BrowserRouter>
               <Routes>
