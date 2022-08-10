@@ -13,9 +13,7 @@ import Home from "./pages/Home";
 
 function App() {
   //Search value
-  const [searchValue, setTextSearch] = useState("Bang sue");
-  
-  console.log(path);
+  const [searchValue, setTextSearch] = useState("Bang sue");  
 
   //On change search bar
   const changeState = (e) => {
